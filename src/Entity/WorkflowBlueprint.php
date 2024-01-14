@@ -12,6 +12,7 @@ use App\Repository\WorkflowBlueprintRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: WorkflowBlueprintRepository::class)]
 #[ApiResource(
@@ -39,6 +40,8 @@ class WorkflowBlueprint implements NotifiableEntityEventInterface
 
     #[ORM\Column(length: 255)]
     #[Groups(['workflow_blueprint:read', 'workflow_blueprint:write'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(min:1, max:255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::GUID)]

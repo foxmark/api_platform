@@ -12,6 +12,7 @@ use App\Repository\WorkflowRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: WorkflowRepository::class)]
 #[ApiResource(
@@ -40,6 +41,7 @@ class Workflow
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('workflow:read')]
+    #[Assert\NotBlank]
     private ?WorkflowBlueprint $WorkflowBlueprint = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
